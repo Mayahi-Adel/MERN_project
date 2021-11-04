@@ -33,7 +33,7 @@ module.exports.updateUser = async (req, res) => {
   const { bio } = req.body;
 
   if (!ObjectID.isValid(id))
-    res.status(400).json({ message: "Unknown ID : " + id });
+    return res.status(400).json({ message: "Unknown ID : " + id });
 
   try {
     await UserModel.findOneAndUpdate(
@@ -45,11 +45,12 @@ module.exports.updateUser = async (req, res) => {
       },
       { new: true, upsert: true, setDefaultsOnInsert: true },
       (err, docs) => {
-        if (!err) return res.send(docs);
-        if (err) console.log(err);
+        console.log(docs);
+        if (!err) return res.json({ docs });
+        else return res.status(500).json({ msg: err });
       }
     );
   } catch (err) {
-    res.status(500).json({ err });
+    //return res.status(500).json({ err });
   }
 };
