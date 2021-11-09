@@ -1,4 +1,4 @@
-const UserModel = require("../models/use.model");
+const UserModel = require("../models/user.model");
 const ObjectID = require("mongoose").Types.ObjectId;
 
 module.exports.getAllUsers = async (req, res) => {
