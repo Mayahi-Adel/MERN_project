@@ -69,24 +69,23 @@ module.exports.deleteUser = async (req, res) => {
 };
 
 module.exports.followUser = async (req, res) => {
-  if (
-    !ObjectID.isValid(req.params.id) ||
-    !ObjectID.isValid(req.body.idToFollow)
-  )
-    return res.status(400).send("ID unknown : " + req.params.id);
+  const { id } = req.params;
+  const { idToFollow } = req.body;
+  if (!ObjectID.isValid(id) || !ObjectID.isValid(idToFollow))
+    return res.status(400).send("ID unknown : " + id);
 
   try {
     // add to the follower list
     await UserModel.findByIdAndUpdate(
-      req.params.id,
-      { $addToSet: { following: req.body.idToFollow } },
+      id,
+      { $addToSet: { following: idToFollow } },
       { new: true, upsert: true }
     );
 
     // add to following list
     await UserModel.findByIdAndUpdate(
-      req.body.idToFollow,
-      { $addToSet: { followers: req.params.id } },
+      idToFollow,
+      { $addToSet: { followers: id } },
       { new: true, upsert: true },
       (err, docs) => {
         if (!err) res.status(201).json(docs);
@@ -99,16 +98,15 @@ module.exports.followUser = async (req, res) => {
 };
 
 module.exports.unfollowUser = async (req, res) => {
-  if (
-    !ObjectID.isValid(req.params.id) ||
-    !ObjectID.isValid(req.body.idToUnfollow)
-  )
-    return res.status(400).send("ID unknown : " + req.params.id);
+  const { id } = req.params;
+  const { idToUnfollow } = req.body;
+  if (!ObjectID.isValid(id) || !ObjectID.isValid(idToUnfollow));
+  return res.status(400).send("ID unknown : " + id);
 
   try {
     await UserModel.findByIdAndUpdate(
-      req.params.id,
-      { $pull: { following: req.body.idToUnfollow } },
+      id,
+      { $pull: { following: idToUnfollow } },
       { new: true, upsert: true }
       // ,
       // (err, docs) => {
@@ -118,8 +116,8 @@ module.exports.unfollowUser = async (req, res) => {
     );
     // remove to following list
     await UserModel.findByIdAndUpdate(
-      req.body.idToUnfollow,
-      { $pull: { followers: req.params.id } },
+      idToUnfollow,
+      { $pull: { followers: id } },
       { new: true, upsert: true },
       (err, docs) => {
         if (!err) res.status(201).json(docs);
