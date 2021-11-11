@@ -1,6 +1,7 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const userRoutes = require("./routes/user.routes");
+const postRoutes = require("./routes/post.routes");
 
 const dotenv = require("dotenv");
 require("./config/db");
@@ -23,6 +24,7 @@ app.get("/jwtid", requireAuth, (req, res) => {
 
 // routes
 app.use("/api/user", userRoutes);
+app.use("/api/post", postRoutes);
 
 const PORT = process.env.PORT || 3000;
 
