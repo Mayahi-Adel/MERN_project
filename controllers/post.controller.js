@@ -3,16 +3,16 @@ const UserModel = require("../models/user.model");
 const ObjectID = require("mongoose").Types.ObjectId;
 
 module.exports.readPosts = async (req, res) => {
-  await PostModel.find((err, docs) => {
-    if (!err) res.send(docs);
-    else console.log("Error to get data : " + err);
-  });
-  //   try {
-  //     const posts = await PostModel.find();
-  //     res.status(200).json({ posts });
-  //   } catch (err) {
-  //     res.status(500).json({ msg: err.message });
-  //   }
+  //   await PostModel.find((err, docs) => {
+  //     if (!err) res.send(docs);
+  //     else console.log("Error to get data : " + err);
+  //   });
+  try {
+    const posts = await PostModel.find().sort({ createdAt: -1 });
+    res.status(200).json({ posts });
+  } catch (err) {
+    res.status(500).json({ msg: err.message });
+  }
 };
 
 module.exports.createPost = async (req, res) => {
@@ -117,4 +117,94 @@ module.exports.unlikePost = async (req, res) => {
       else console.log("Unlike post error :" + err);
     }
   );
+};
+
+// Comments
+
+module.exports.commentPost = async (req, res) => {
+  const { id } = req.params;
+  const { commenterId, commenterPseudo, text } = req.body;
+
+  if (!ObjectID.isValid(id)) return res.status(400).json("ID unknown : " + id);
+
+  try {
+    const response = await PostModel.findByIdAndUpdate(
+      id,
+      {
+        $push: {
+          comments: {
+            commenterId,
+            commenterPseudo,
+            text,
+            timestamps: new Date().getTime(),
+          },
+        },
+      },
+      { new: true },
+      (err, docs) => {
+        if (!err) res.send(docs);
+        else res.status(500).send(err);
+      }
+    );
+  } catch (err) {
+    // commented because there is a problem in mongoose package !
+    //res.status(500).json(err.message);
+  }
+};
+
+module.exports.editCommentPost = async (req, res) => {
+  const { id } = req.params;
+  const { commentId, text } = req.body;
+
+  console.log(commentId);
+
+  if (!ObjectID.isValid(id)) return res.status(400).json("ID unknown : " + id);
+
+  try {
+    await PostModel.findById(id, (err, docs) => {
+      const theComment = docs.comments.find((comment) =>
+        comment._id.equals(commentId)
+      );
+
+      if (!theComment) return res.status(400).json("Comment not found !");
+
+      theComment.text = text;
+
+      return docs.save((err) => {
+        if (!err) res.status(200).json(docs);
+        else return res.status(500).json(err);
+      });
+    });
+  } catch (err) {
+    // commented because there is a problem in mongoose package !
+    //res.status(500).json(err.message);
+  }
+};
+
+module.exports.deleteCommentPost = async (req, res) => {
+  const { id } = req.params;
+  const { commentId } = req.body;
+
+  if (!ObjectID.isValid(id)) return res.status(400).json("ID unknown : " + id);
+
+  try {
+    await PostModel.findByIdAndUpdate(
+      id,
+      {
+        $pull: {
+          comments: {
+            _id: commentId,
+          },
+        },
+      },
+      { new: true },
+      (err, docs) => {
+        if (!err) res.status(200).json(docs);
+        else return res.status(500).json(err);
+      }
+    );
+  } catch (err) {
+    // commented because there is a problem in mongoose package !
+    //res.status(500).json(err.message);
+  }
 };
