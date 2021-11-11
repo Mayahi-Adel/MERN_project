@@ -3,7 +3,7 @@ const UserModel = require("../models/user.model");
 const ObjectID = require("mongoose").Types.ObjectId;
 
 module.exports.readPosts = async (req, res) => {
-  PostModel.find((err, docs) => {
+  await PostModel.find((err, docs) => {
     if (!err) res.send(docs);
     else console.log("Error to get data : " + err);
   });
@@ -40,11 +40,7 @@ module.exports.updatePost = async (req, res) => {
 
   if (!ObjectID.isValid(id)) return res.status(400).json("ID unknown : " + id);
 
-  const updateRecord = {
-    message,
-  };
-
-  PostModel.findByIdAndUpdate(
+  await PostModel.findByIdAndUpdate(
     id,
     {
       $set: {
@@ -63,9 +59,62 @@ module.exports.deletePost = async (req, res) => {
   const { id } = req.params;
   if (!ObjectID.isValid(id)) return res.status(400).json("ID unknown : " + id);
 
-  PostModel.findByIdAndRemove(id, (err, docs) => {
+  await PostModel.findByIdAndRemove(id, (err, docs) => {
     if (!err) {
       res.send({ id: docs._id });
     } else console.log("Delete error : " + err);
   });
+};
+
+module.exports.likePost = async (req, res) => {
+  const idPost = req.params.id;
+  const { idLiker } = req.body;
+
+  if (!ObjectID.isValid(idLiker) || !ObjectID.isValid(idPost))
+    return res.status(400).json("ID unknown : " + idLiker);
+
+  try {
+    await PostModel.findByIdAndUpdate(
+      idPost,
+      { $addToSet: { likers: idLiker } },
+      { new: true },
+      (err, docs) => {
+        if (!err) res.send(docs);
+        if (err) console.log("Post - Like post error :" + err);
+      }
+    );
+
+    //
+    // IT'S NOT NECESSARY TO HAVE A likes REGISTER IN THE user DOCUMENT !!!  //
+    //
+    // await UserModel.findByIdAndUpdate(
+    //   idLiker,
+    //   { $addToSet: { likes: idPost } },
+    //   { new: true },
+    //   (err, docs) => {
+    //     if (!err) res.send(docs);
+    //     else console.log("User - Like post error :" + err);
+    //   }
+    // );
+  } catch (err) {
+    console.log("err:" + err);
+  }
+};
+
+module.exports.unlikePost = async (req, res) => {
+  const idPost = req.params.id;
+  const { idLiker } = req.body;
+
+  if (!ObjectID.isValid(idLiker) || !ObjectID.isValid(idPost))
+    return res.status(400).json("ID unknown : " + idLiker);
+
+  PostModel.findByIdAndUpdate(
+    idPost,
+    { $pull: { likers: idLiker } },
+    { new: true },
+    (err, docs) => {
+      if (!err) res.send(docs);
+      else console.log("Unlike post error :" + err);
+    }
+  );
 };
