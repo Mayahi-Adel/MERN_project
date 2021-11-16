@@ -15,18 +15,16 @@ module.exports.uploadProfil = async (req, res) => {
 
     if (req.file.size > 500000) throw Error("max size");
   } catch (err) {
-    console.log(err.message);
-
     const errors = uploadErrors(err);
     return res.status(500).json({ errors });
   }
 
   // rename the picture (it takes the pseudo of the user)
   const fileName = req.file.filename;
-  const newFileName = req.body.name;
+  const newFileName = req.body.name + ".jpg";
   fs.rename(
     `${__dirname}/../client/public/uploads/profil/${fileName}`,
-    `${__dirname}/../client/public/uploads/profil/${newFileName}` + ".jpg",
+    `${__dirname}/../client/public/uploads/profil/${newFileName}`,
     function (err) {
       if (err) console.log("ERROR: " + err);
     }

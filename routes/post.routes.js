@@ -1,8 +1,9 @@
 const router = require("express").Router();
-const postController = require("../controllers/post.controller.js");
+const postController = require("../controllers/post.controller");
+const { upload } = require("../utils/upload");
 
 router.get("/", postController.readPosts);
-router.post("/", postController.createPost);
+router.post("/", upload, postController.createPost);
 router.put("/:id", postController.updatePost);
 router.delete("/:id", postController.deletePost);
 router.put("/like/:id", postController.likePost);

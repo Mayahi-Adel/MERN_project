@@ -1,6 +1,8 @@
+const fs = require("fs");
 const PostModel = require("../models/post.model");
 const UserModel = require("../models/user.model");
 const ObjectID = require("mongoose").Types.ObjectId;
+const { uploadErrors } = require("../utils/errors.utils");
 
 module.exports.readPosts = async (req, res) => {
   //   await PostModel.find((err, docs) => {
@@ -18,9 +20,37 @@ module.exports.readPosts = async (req, res) => {
 module.exports.createPost = async (req, res) => {
   const { posterId, message, picture, video } = req.body;
 
+  try {
+    const file = req?.file;
+    if (
+      file == undefined ||
+      (req?.file?.mimetype != "image/jpg" &&
+        req?.file?.mimetype != "image/png" &&
+        req?.file?.mimetype != "image/jpeg")
+    )
+      throw Error("Invalid file");
+
+    if (req.file.size > 500000) throw Error("max size");
+  } catch (err) {
+    const errors = uploadErrors(err);
+    return res.status(500).json({ errors });
+  }
+
+  // rename the picture (it takes the pseudo of the user)
+  const fileName = req.file.filename;
+  const newFileName = req.body.posterId + Date.now() + ".jpg";
+  fs.rename(
+    `${__dirname}/../client/public/uploads/posts/${fileName}`,
+    `${__dirname}/../client/public/uploads/posts/${newFileName}`,
+    function (err) {
+      if (err) console.log("ERROR: " + err);
+    }
+  );
+
   const newPost = new PostModel({
     posterId,
     message,
+    picture: req.file ? "./uploads/posts/" + newFileName : "",
     video,
     likers: [],
     comments: [],

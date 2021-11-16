@@ -2,7 +2,14 @@ const multer = require("multer");
 
 const multerStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, `${__dirname}/../client/public/uploads/profil`);
+    console.log(req.url);
+
+    if (req.url === "/upload") {
+      cb(null, `${__dirname}/../client/public/uploads/profil`);
+    }
+    if (req.url === "/") {
+      cb(null, `${__dirname}/../client/public/uploads/posts`);
+    }
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + "--" + file.originalname);
