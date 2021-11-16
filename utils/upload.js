@@ -5,7 +5,6 @@ const multerStorage = multer.diskStorage({
     cb(null, `${__dirname}/../client/public/uploads/profil`);
   },
   filename: function (req, file, cb) {
-    console.log(req.body);
     cb(null, Date.now() + "--" + file.originalname);
   },
 });
@@ -24,5 +23,8 @@ const fileFilter = (req, file, cb) => {
 
 let upload = (exports.upload = multer({
   storage: multerStorage,
+  limits: {
+    fileSize: 500000, // 1000000 Bytes = 1 MB
+  },
   fileFilter: fileFilter,
 }).single("file"));
