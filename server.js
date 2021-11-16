@@ -2,6 +2,7 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const userRoutes = require("./routes/user.routes");
 const postRoutes = require("./routes/post.routes");
+const cors = require("cors");
 
 const dotenv = require("dotenv");
 require("./config/db");
@@ -11,6 +12,16 @@ dotenv.config({ path: "./config/.env" });
 const { checkUser, requireAuth } = require("./middleware/auth.middleware");
 
 const app = express();
+
+const corsOptions = {
+  origin: process.env.CLIENT_URL,
+  credentials: true,
+  allowedHeaders: ["sessionId", "Content-Type"],
+  exposedHeaders: ["sessionId"],
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: false,
+};
+app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
