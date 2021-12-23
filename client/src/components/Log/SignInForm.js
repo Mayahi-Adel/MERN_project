@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import { signin } from "../../services";
 
 function SignInForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   const isInvalid = password === "" || email === "";
 
@@ -14,16 +14,15 @@ function SignInForm() {
     e.preventDefault();
 
     try {
-      const response = await signin(email, password);
-      navigate("/");
-
-      console.log(response);
+      await signin(email, password);
+      window.location = "/";
+      // navigate("/");
     } catch (error) {
       setEmail("");
       setPassword("");
-      if (error.response.data.errors.email !== "")
-        setError(error.response.data.errors.email);
-      if (error.response.data.errors.password !== "")
+      if (error?.response?.data?.errors?.email !== "")
+        setError(error.response?.data.errors.email);
+      if (error?.response?.data?.errors?.password !== "")
         setError(error.response.data.errors.password);
     }
   };

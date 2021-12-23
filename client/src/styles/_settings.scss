@@ -55,7 +55,7 @@ textarea {
 }
 button,
 input[type="submit"] {
-  background: $color-1;
+  background: linear-gradient(to left, #f69ec4 0%, $color-1 100%);
   color: $white;
   font-family: $font-3;
   cursor: pointer;
@@ -102,4 +102,5 @@ body {
 .success {
   color: green;
   font-weight: bold;
+  padding-top: 20px;
 }

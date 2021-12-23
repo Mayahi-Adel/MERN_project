@@ -1,10 +1,14 @@
+import UserContext from "./context/appContext";
 import AppRouter from "./Routers";
+import useAuthListener from "./hooks/use-auth-listener";
 
 function App() {
+  const uid = useAuthListener();
+
   return (
-    <div className="App">
+    <UserContext.Provider value={uid}>
       <AppRouter />
-    </div>
+    </UserContext.Provider>
   );
 }
 

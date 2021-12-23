@@ -1,17 +1,23 @@
 import api from "./api";
 
 const signin = async (email, password) => {
-  return await api.post("/user/login", { email, password });
+  return await api.post(
+    "/user/login",
+    { email, password },
+    { withCredentials: true }
+  );
 };
 
-const signup = async (firstname, lastname, email, password, role) => {
-  return await api.post("/registration", {
-    firstname,
-    lastname,
+const signup = async (pseudo, email, password) => {
+  return await api.post("/user/register", {
+    pseudo,
     email,
     password,
-    role,
   });
 };
 
-export { signin, signup };
+const userListener = async () => {
+  return await api.get("/jwtid", { withCredentials: true });
+};
+
+export { signin, signup, userListener };
