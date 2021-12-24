@@ -1,4 +1,5 @@
 import api from "./api";
+import getUserById from "./users";
 
 const signin = async (email, password) => {
   return await api.post(
@@ -16,8 +17,12 @@ const signup = async (pseudo, email, password) => {
   });
 };
 
+const userLogout = async () => {
+  return await api.get("/user/logout", { withCredentials: true });
+};
+
 const userListener = async () => {
   return await api.get("/jwtid", { withCredentials: true });
 };
 
-export { signin, signup, userListener };
+export { signin, signup, userLogout, userListener, getUserById };
