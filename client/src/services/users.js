@@ -4,4 +4,8 @@ const getUserById = async (uid) => {
   return await api.get(`/user/${uid}`);
 };
 
-export default getUserById;
+const uploadFile = async (data) => {
+  return await api.post(`/user/upload`, data);
+};
+
+export { getUserById, uploadFile };
