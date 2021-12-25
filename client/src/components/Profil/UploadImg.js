@@ -26,6 +26,7 @@ function UploadImg() {
         name="file"
         accept=".jpg, .jpeg, .png"
         onChange={(e) => setFile(e.target.files[0])}
+        style={{ display: "none" }}
       />
       <br />
       <input type="submit" value="Envoyer" />

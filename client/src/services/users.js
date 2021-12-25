@@ -8,4 +8,8 @@ const uploadFile = async (data) => {
   return await api.post(`/user/upload`, data);
 };
 
-export { getUserById, uploadFile };
+const updateBiography = async (id, bio) => {
+  return await api.put(`/user/${id}`, { bio });
+};
+
+export { getUserById, uploadFile, updateBiography };
