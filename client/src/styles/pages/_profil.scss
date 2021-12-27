@@ -27,12 +27,19 @@
     display: grid;
     grid-template-columns: 50% 50%;
 
+    @media screen and(max-width: 885px) {
+      grid-template-columns: 1fr;
+      margin-left: 60px;
+      max-width: 95%;
+    }
+
     > div {
       background: $color-4;
       border-radius: 20px;
       padding: 25px 0;
       //margin: 20px 10px;
       width: 99%;
+      margin-bottom: 10px;
 
       @media screen and(max-width: 700px) {
         margin: 10px 10px;
@@ -229,6 +236,7 @@
 
       @media screen and(max-width: 700px) {
         margin: 10px 10px;
+        width: auto;
       }
     }
     .left-part {

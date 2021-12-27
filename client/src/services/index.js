@@ -1,5 +1,12 @@
 import api from "./api";
-import { getUserById, uploadFile, updateBiography } from "./users";
+import {
+  getUserById,
+  uploadFile,
+  updateBiography,
+  getAllUsers,
+  follow_user,
+  unfollow_user,
+} from "./users";
 
 const signin = async (email, password) => {
   return await api.post(
@@ -33,4 +40,7 @@ export {
   getUserById,
   uploadFile,
   updateBiography,
+  getAllUsers,
+  follow_user,
+  unfollow_user,
 };

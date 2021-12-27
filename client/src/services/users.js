@@ -12,4 +12,23 @@ const updateBiography = async (id, bio) => {
   return await api.put(`/user/${id}`, { bio });
 };
 
-export { getUserById, uploadFile, updateBiography };
+const getAllUsers = async () => {
+  return await api.get(`/user`);
+};
+
+const follow_user = async (followerId, idToFollow) => {
+  return await api.patch(`/user/follow/${followerId}`, { idToFollow });
+};
+
+const unfollow_user = async (followerId, idToUnfollow) => {
+  return await api.patch(`/user/unfollow/${followerId}`, { idToUnfollow });
+};
+
+export {
+  getUserById,
+  uploadFile,
+  updateBiography,
+  getAllUsers,
+  follow_user,
+  unfollow_user,
+};
