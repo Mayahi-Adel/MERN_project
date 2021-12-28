@@ -1,10 +1,18 @@
-import React, { useContext } from "react";
-import UserContext from "../context/appContext";
+import React from "react";
+import LeftNav from "../components/LeftNav";
+import Thread from "../components/Thread";
 
 function Home() {
-  const uid = useContext(UserContext);
-  console.log(uid);
-  return <div>Home</div>;
+  return (
+    <>
+      <LeftNav active="home" />
+      <div className="home">
+        <div className="main">
+          <Thread />
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default Home;

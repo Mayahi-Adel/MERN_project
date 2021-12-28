@@ -8,6 +8,8 @@ import {
   unfollow_user,
 } from "./users";
 
+import { getAllPosts } from "./posts";
+
 const signin = async (email, password) => {
   return await api.post(
     "/user/login",
@@ -43,4 +45,5 @@ export {
   getAllUsers,
   follow_user,
   unfollow_user,
+  getAllPosts,
 };

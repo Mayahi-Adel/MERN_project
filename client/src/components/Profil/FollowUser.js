@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { followUser, unfollowUser } from "../../actions/user.actions";
 
 function FollowUser({ idToFollow }) {
-  const userData = useSelector((state) => state.userReducer.data);
+  const userData = useSelector((state) => state.user.data);
   const [isFollowed, setIsFollowed] = useState(false);
   const dispatch = useDispatch();
 

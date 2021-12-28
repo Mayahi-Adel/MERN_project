@@ -12,12 +12,14 @@ function UpdateProfil() {
   const [followingPopup, setFollowingPopup] = useState(false);
   const [followersPopup, setFollowersPopup] = useState(false);
 
-  const userData = useSelector((state) => state.userReducer?.data);
-  const usersData = useSelector((state) => state.usersReducer?.data?.users);
+  const userData = useSelector((state) => state.user?.data);
+  //console.log(userData);
+
+  const usersData = useSelector((state) => state.users);
   const dispatch = useDispatch();
 
   const handleUpdateBio = () => {
-    dispatch(updateBio(userData?._id, bio));
+    dispatch(updateBio(userData._id, bio));
     setUpdateForm(false);
   };
 
@@ -41,7 +43,16 @@ function UpdateProfil() {
         <div className="right-part">
           <div className="bio-update">
             <h3>Bio</h3>
-            {!updateForm && (
+
+            {updateForm ? (
+              <>
+                <textarea
+                  defaultValue={userData?.bio}
+                  onChange={(e) => setBio(e.target.value)}
+                />
+                <button onClick={handleUpdateBio}>Valider Modifications</button>
+              </>
+            ) : (
               <>
                 <p onClick={() => setUpdateForm(!updateForm)}>
                   {userData?.bio}
@@ -49,15 +60,6 @@ function UpdateProfil() {
                 <button onClick={() => setUpdateForm(!updateForm)}>
                   Modifier bio
                 </button>
-              </>
-            )}
-            {updateForm && (
-              <>
-                <textarea
-                  defaultValue={userData?.bio}
-                  onChange={(e) => setBio(e.target.value)}
-                />
-                <button onClick={handleUpdateBio}>Valider Modifications</button>
               </>
             )}
           </div>

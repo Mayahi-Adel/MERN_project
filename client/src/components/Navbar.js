@@ -6,7 +6,7 @@ import Logout from "./Log/Logout";
 
 function Navbar() {
   const uid = useContext(UserContext);
-  const userData = useSelector((state) => state.userReducer?.data);
+  const userData = useSelector((state) => state.user?.data);
   //console.log("data", userData);
 
   return (

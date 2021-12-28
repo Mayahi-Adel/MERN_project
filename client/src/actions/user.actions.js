@@ -39,6 +39,7 @@ export const updateBio = (id, bio) => {
   return async (dispatch) => {
     try {
       await updateBiography(id, bio);
+
       dispatch({ type: UPDATE_BIO, payload: bio });
     } catch (err) {
       console.log(err);
