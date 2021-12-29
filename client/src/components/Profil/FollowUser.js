@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { followUser, unfollowUser } from "../../actions/user.actions";
 
-function FollowUser({ idToFollow }) {
+function FollowUser({ idToFollow, type }) {
   const userData = useSelector((state) => state.user.data);
   const [isFollowed, setIsFollowed] = useState(false);
   const dispatch = useDispatch();
@@ -26,13 +26,35 @@ function FollowUser({ idToFollow }) {
   return (
     <>
       {isFollowed ? (
-        <button className="unfollow-btn" onClick={handleUnfollow}>
-          Abonné
-        </button>
+        <>
+          {type === "suggestion" && (
+            <button className="unfollow-btn" onClick={handleUnfollow}>
+              Abonné
+            </button>
+          )}
+          {type === "card" && (
+            <img
+              src="./img/icons/checked.svg"
+              alt="checked"
+              onClick={handleUnfollow}
+            />
+          )}
+        </>
       ) : (
-        <button className="unfollow-btn" onClick={handleFollow}>
-          Suivre
-        </button>
+        <>
+          {type === "suggestion" && (
+            <button className="unfollow-btn" onClick={handleFollow}>
+              Suivre
+            </button>
+          )}
+          {type === "card" && (
+            <img
+              src="./img/icons/check.svg"
+              alt="check"
+              onClick={handleFollow}
+            />
+          )}
+        </>
       )}
     </>
   );

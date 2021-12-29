@@ -15,7 +15,7 @@ function UpdateProfil() {
   const userData = useSelector((state) => state.user?.data);
   //console.log(userData);
 
-  const usersData = useSelector((state) => state.users);
+  const usersData = useSelector((state) => state.users?.data);
   const dispatch = useDispatch();
 
   const handleUpdateBio = () => {
@@ -80,7 +80,7 @@ function UpdateProfil() {
               &#10005;
             </span>
             <ul>
-              {usersData.map((user) => {
+              {usersData?.users?.map((user) => {
                 for (let i = 0; i < userData?.following?.length; i++) {
                   if (user._id === userData?.following[i]) {
                     return (
@@ -88,7 +88,10 @@ function UpdateProfil() {
                         <img src={user?.picture} alt="user-pic" />
                         <h4>{user?.pseudo}</h4>
                         <div className="follow-handler">
-                          <FollowUser idToFollow={user._id} />
+                          <FollowUser
+                            idToFollow={user._id}
+                            type={"suggestion"}
+                          />
                         </div>
                       </li>
                     );
@@ -110,7 +113,7 @@ function UpdateProfil() {
               &#10005;
             </span>
             <ul>
-              {usersData.map((user) => {
+              {usersData?.users.map((user) => {
                 for (let i = 0; i < userData?.followers.length; i++) {
                   if (user._id === userData?.followers[i]) {
                     return (
@@ -118,7 +121,7 @@ function UpdateProfil() {
                         <img src={user?.picture} alt="user-pic" />
                         <h4>{user?.pseudo}</h4>
                         <div className="follow-handler">
-                          <FollowUser idToFollow={user._id} />
+                          <FollowUser idToFollow={user._id} type="suggestion" />
                         </div>
                       </li>
                     );
