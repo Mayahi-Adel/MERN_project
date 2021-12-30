@@ -3,7 +3,7 @@ import LeftNav from "../LeftNav";
 import { useSelector, useDispatch } from "react-redux";
 import UploadImg from "./UploadImg";
 import { updateBio } from "../../actions/user.actions";
-import { dateParser } from "../../utils/dateParser";
+import { dateParser } from "../../utils";
 import FollowUser from "./FollowUser";
 
 function UpdateProfil() {

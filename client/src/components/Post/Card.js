@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { dateParser } from "../../utils/dateParser";
+import { dateParser } from "../../utils";
 import FollowUser from "../Profil/FollowUser";
+import LikeButton from "./LikeButton";
 
 function Card({ post }) {
   const [isLoading, setIsLoading] = useState(true);
   const usersData = useSelector((state) => state.users?.data);
   const userData = useSelector((state) => state.user?.data);
-  console.log(usersData);
+
+  console.log("POST : ", post);
 
   useEffect(() => {
     if (usersData) setIsLoading(false);
@@ -65,7 +67,7 @@ function Card({ post }) {
                 <img src="./img/icons/message1.svg" alt="edit-comment" />
                 <span>{post.comments.length}</span>
               </div>
-              <h6>like button</h6>
+              <LikeButton post={post} />
               <img src="./img/icons/share.svg" alt="share post" />
             </div>
           </div>
