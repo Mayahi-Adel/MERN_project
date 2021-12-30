@@ -12,10 +12,10 @@ function UpdateProfil() {
   const [followingPopup, setFollowingPopup] = useState(false);
   const [followersPopup, setFollowersPopup] = useState(false);
 
-  const userData = useSelector((state) => state.user?.data);
+  const userData = useSelector((state) => state.user);
   //console.log(userData);
 
-  const usersData = useSelector((state) => state.users?.data);
+  const usersData = useSelector((state) => state.users);
   const dispatch = useDispatch();
 
   const handleUpdateBio = () => {

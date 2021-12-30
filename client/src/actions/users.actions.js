@@ -6,7 +6,7 @@ export const getUsers = () => {
   return async (dispatch) => {
     try {
       const users = await getAllUsers();
-      dispatch({ type: GET_USERS, payload: users });
+      dispatch({ type: GET_USERS, payload: users.data });
     } catch (err) {
       console.log(err);
     }

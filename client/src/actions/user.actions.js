@@ -16,7 +16,7 @@ export const getUser = (uid) => {
   return async (dispatch) => {
     try {
       const user = await getUserById(uid);
-      dispatch({ type: GET_USER, payload: user });
+      dispatch({ type: GET_USER, payload: user.data });
     } catch (err) {
       console.log(err);
     }

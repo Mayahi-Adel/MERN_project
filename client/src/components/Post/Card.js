@@ -6,8 +6,8 @@ import LikeButton from "./LikeButton";
 
 function Card({ post }) {
   const [isLoading, setIsLoading] = useState(true);
-  const usersData = useSelector((state) => state.users?.data);
-  const userData = useSelector((state) => state.user?.data);
+  const usersData = useSelector((state) => state.users);
+  const userData = useSelector((state) => state.user);
 
   useEffect(() => {
     if (usersData) setIsLoading(false);
