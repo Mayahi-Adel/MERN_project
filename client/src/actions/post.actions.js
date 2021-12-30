@@ -1,4 +1,4 @@
-import { getAllPosts, like_post } from "../services";
+import { getAllPosts, like_post, unlike_post } from "../services";
 
 //posts
 export const GET_POSTS = "GET_POSTS";
@@ -22,6 +22,17 @@ export const likePost = (postId, userId) => {
     try {
       await like_post(postId, userId);
       dispatch({ type: LIKE_POST, payload: { postId, userId } });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const unlikePost = (postId, userId) => {
+  return async (dispatch) => {
+    try {
+      await unlike_post(postId, userId);
+      dispatch({ type: UNLIKE_POST, payload: { postId, userId } });
     } catch (err) {
       console.log(err);
     }

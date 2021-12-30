@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
-import { likePost } from "../../actions/post.actions";
+import { likePost, unlikePost } from "../../actions/post.actions";
 import UserContext from "../../context/appContext";
 
 function LikeButton({ post }) {
@@ -15,10 +15,14 @@ function LikeButton({ post }) {
     setLiked(true);
   };
 
-  const unlike = () => {};
+  const unlike = () => {
+    dispatch(unlikePost(post._id, uid));
+    setLiked(false);
+  };
 
   useEffect(() => {
     if (post.likers.includes(uid)) setLiked(true);
+    else setLiked(false);
   }, [uid, post.likers, liked]);
 
   return (
@@ -38,6 +42,7 @@ function LikeButton({ post }) {
       {uid && liked && (
         <img src="./img/icons/heart-filled.svg" alt="lunike" onClick={unlike} />
       )}
+      <span>{post.likers.length}</span>
     </div>
   );
 }

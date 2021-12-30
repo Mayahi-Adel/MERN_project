@@ -9,8 +9,6 @@ function Card({ post }) {
   const usersData = useSelector((state) => state.users?.data);
   const userData = useSelector((state) => state.user?.data);
 
-  console.log("POST : ", post);
-
   useEffect(() => {
     if (usersData) setIsLoading(false);
   }, [usersData]);

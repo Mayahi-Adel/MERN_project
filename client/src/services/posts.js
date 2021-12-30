@@ -8,4 +8,8 @@ const like_post = async (postId, userId) => {
   return await api.patch(`/post/like/${postId}`, { idLiker: userId });
 };
 
-export { getAllPosts, like_post };
+const unlike_post = async (postId, userId) => {
+  return await api.patch(`/post/unlike/${postId}`, { idLiker: userId });
+};
+
+export { getAllPosts, like_post, unlike_post };
