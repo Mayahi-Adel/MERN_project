@@ -20,7 +20,7 @@ export default function useAuthListener() {
 
     listener();
     if (uid) dispatch(getUser(uid));
-  }, [uid]);
+  }, [uid, dispatch]);
 
   return uid;
 }

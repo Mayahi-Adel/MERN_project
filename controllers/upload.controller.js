@@ -5,6 +5,7 @@ const { uploadErrors } = require("../utils/errors.utils");
 module.exports.uploadProfil = async (req, res) => {
   try {
     const file = req?.file;
+
     if (
       file == undefined ||
       (req?.file?.mimetype != "image/jpg" &&

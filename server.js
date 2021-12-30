@@ -29,7 +29,7 @@ app.use(cookieParser());
 
 //JWT
 app.get("*", checkUser);
-app.get("/jwtid", requireAuth, (req, res) => {
+app.get("/api/jwtid", requireAuth, (req, res) => {
   res.status(200).send(res.locals.user._id);
 });
 
@@ -37,7 +37,7 @@ app.get("/jwtid", requireAuth, (req, res) => {
 app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

@@ -97,6 +97,7 @@ function UpdateProfil() {
                     );
                   }
                 }
+                return null;
               })}
             </ul>
           </div>
@@ -127,6 +128,7 @@ function UpdateProfil() {
                     );
                   }
                 }
+                return null;
               })}
             </ul>
           </div>

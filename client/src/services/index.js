@@ -8,7 +8,7 @@ import {
   unfollow_user,
 } from "./users";
 
-import { getAllPosts, like_post, unlike_post } from "./posts";
+import { getAllPosts, like_post, unlike_post, update_post } from "./posts";
 
 const signin = async (email, password) => {
   return await api.post(
@@ -48,4 +48,5 @@ export {
   getAllPosts,
   like_post,
   unlike_post,
+  update_post,
 };

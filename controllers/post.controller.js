@@ -11,7 +11,7 @@ module.exports.readPosts = async (req, res) => {
   //   });
   try {
     const posts = await PostModel.find().sort({ createdAt: -1 });
-    res.status(200).json({ posts });
+    res.status(200).send(posts);
   } catch (err) {
     res.status(500).json({ msg: err.message });
   }
@@ -69,20 +69,23 @@ module.exports.updatePost = async (req, res) => {
   const { message } = req.body;
 
   if (!ObjectID.isValid(id)) return res.status(400).json("ID unknown : " + id);
-
-  await PostModel.findByIdAndUpdate(
-    id,
-    {
-      $set: {
-        message,
+  try {
+    await PostModel.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          message,
+        },
       },
-    },
-    { new: true },
-    (err, docs) => {
-      if (!err) res.send(docs);
-      else console.log("Update error : " + err);
-    }
-  );
+      { new: true, upsert: true },
+      (err, docs) => {
+        if (!err) res.send(docs);
+        else console.log("Update error : " + err);
+      }
+    );
+  } catch (err) {
+    //console.log(err);
+  }
 };
 
 module.exports.deletePost = async (req, res) => {
@@ -100,14 +103,14 @@ module.exports.likePost = async (req, res) => {
   const idPost = req.params.id;
   const { idLiker } = req.body;
 
-  if (!ObjectID.isValid(idLiker) || !ObjectID.isValid(idPost))
-    return res.status(400).json("ID unknown : " + idLiker);
+  // if (!ObjectID.isValid(idLiker) || !ObjectID.isValid(idPost))
+  //   return res.status(400).json("ID unknown : " + idLiker);
 
   try {
     await PostModel.findByIdAndUpdate(
       idPost,
       { $addToSet: { likers: idLiker } },
-      { new: true },
+      { new: true, upsert: true },
       (err, docs) => {
         if (!err) res.send(docs);
         if (err) console.log("Post - Like post error :" + err);
@@ -127,7 +130,7 @@ module.exports.likePost = async (req, res) => {
     //   }
     // );
   } catch (err) {
-    console.log("err:" + err);
+    //console.log("Error: " + err.message);
   }
 };
 

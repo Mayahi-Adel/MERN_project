@@ -9,7 +9,7 @@ module.exports.checkUser = (req, res, next) => {
       if (err) {
         res.locals.user = null;
         res.cookie("jwt", "", { maxAge: 1 });
-        next();
+        res.status(401).send("No Token!");
       } else {
         let user = await UserModel.findById(decodedToken.id);
         res.locals.user = user;

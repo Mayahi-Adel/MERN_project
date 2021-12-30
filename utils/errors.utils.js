@@ -2,7 +2,7 @@ module.exports.signUpErrors = (err) => {
   let errors = { pseudo: "", email: "", password: "" };
 
   if (err.message.includes("pseudo"))
-    errors.pseudo = "Pseudo invalide ou déjà pris";
+    errors.pseudo = "Pseudo invalide (min 3 caractères) ou déjà pris";
   if (err.message.includes("email")) errors.email = "Email incorrect";
   if (err.message.includes("password"))
     errors.password = "Le mot de passse doit faire 6 caractères minimum";

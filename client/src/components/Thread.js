@@ -29,7 +29,7 @@ function Thread() {
     window.addEventListener("scroll", loadMore);
 
     return () => window.removeEventListener("scroll", loadMore);
-  }, [loadPosts, dispatch]);
+  }, [loadPosts, dispatch, count]);
 
   return (
     <div className="thread-container">
