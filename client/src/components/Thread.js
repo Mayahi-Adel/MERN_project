@@ -6,14 +6,29 @@ import Card from "./Post/Card";
 
 function Thread() {
   const [loadPosts, setLoadPosts] = useState(true);
+  const [count, setCount] = useState(2);
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
 
+  const loadMore = () => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop + 1 >
+      document.scrollingElement.scrollHeight
+    ) {
+      setLoadPosts(true);
+    }
+  };
+
   useEffect(() => {
     if (loadPosts) {
-      dispatch(getPosts());
+      dispatch(getPosts(count));
       setLoadPosts(false);
+      setCount(count + 5);
     }
+
+    window.addEventListener("scroll", loadMore);
+
+    return () => window.removeEventListener("scroll", loadMore);
   }, [loadPosts, dispatch]);
 
   return (

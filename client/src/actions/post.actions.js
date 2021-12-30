@@ -5,12 +5,12 @@ export const GET_POSTS = "GET_POSTS";
 export const LIKE_POST = "LIKE_POST";
 export const UNLIKE_POST = "UNLIKE_POST";
 
-export const getPosts = () => {
+export const getPosts = (count) => {
   return async (dispatch) => {
     try {
       const posts = await await getAllPosts();
-
-      dispatch({ type: GET_POSTS, payload: posts.data });
+      const array = posts.data.slice(0, count);
+      dispatch({ type: GET_POSTS, payload: array });
     } catch (err) {
       console.log(err);
     }
