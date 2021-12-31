@@ -28,9 +28,11 @@ export const uploadPicture = (data, id) => {
     try {
       await uploadFile(data);
       const user = await getUserById(id);
+      console.log(user);
+
       dispatch({ type: UPLOAD_PICTURE, payload: user?.data?.picture });
     } catch (err) {
-      console.log(err);
+      console.log(err.message);
     }
   };
 };

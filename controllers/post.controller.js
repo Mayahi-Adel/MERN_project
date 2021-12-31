@@ -60,7 +60,7 @@ module.exports.createPost = async (req, res) => {
     const post = await newPost.save();
     res.status(201).json(post);
   } catch (err) {
-    res.status(500).json({ msg: err.message });
+    //res.status(500).json({ msg: err.message });
   }
 };
 
@@ -92,11 +92,13 @@ module.exports.deletePost = async (req, res) => {
   const { id } = req.params;
   if (!ObjectID.isValid(id)) return res.status(400).json("ID unknown : " + id);
 
-  await PostModel.findByIdAndRemove(id, (err, docs) => {
-    if (!err) {
-      res.send({ id: docs._id });
-    } else console.log("Delete error : " + err);
-  });
+  try {
+    await PostModel.findByIdAndRemove(id, (err, docs) => {
+      if (!err) {
+        res.send({ id: docs._id });
+      } else console.log("Delete error : " + err);
+    });
+  } catch (err) {}
 };
 
 module.exports.likePost = async (req, res) => {

@@ -15,10 +15,12 @@ module.exports.userInfo = async (req, res) => {
 
   if (!ObjectID.isValid(id))
     return res.status(400).json({ message: "Unknown ID : " + id });
-  UserModel.findById(id, (err, docs) => {
-    if (!err) res.status(200).json(docs);
-    else console.log("Unkown ID : " + err);
-  }).select("-password");
+  try {
+    UserModel.findById(id, (err, docs) => {
+      if (!err) res.status(200).json(docs);
+      else console.log("Unkown ID : " + err);
+    }).select("-password");
+  } catch (err) {}
 
   //   try {
   //     const user = await UserModel.findById(id).select("-password");

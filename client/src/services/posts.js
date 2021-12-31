@@ -16,4 +16,8 @@ const update_post = async (postId, message) => {
   return await api.put(`/post/${postId}`, { message });
 };
 
-export { getAllPosts, like_post, unlike_post, update_post };
+const delete_post = async (postId) => {
+  return api.delete(`post/${postId}`);
+};
+
+export { getAllPosts, like_post, unlike_post, update_post, delete_post };

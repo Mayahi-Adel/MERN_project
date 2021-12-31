@@ -1,4 +1,5 @@
 import {
+  DELETE_POST,
   GET_POSTS,
   LIKE_POST,
   UNLIKE_POST,
@@ -38,6 +39,8 @@ export default function postReducer(state = initialState, action) {
         }
         return post;
       });
+    case DELETE_POST:
+      return state.filter((post) => post._id !== action.payload.postId);
     default:
       return state;
   }

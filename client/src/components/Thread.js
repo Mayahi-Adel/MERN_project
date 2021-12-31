@@ -6,7 +6,7 @@ import Card from "./Post/Card";
 
 function Thread() {
   const [loadPosts, setLoadPosts] = useState(true);
-  const [count, setCount] = useState(2);
+  const [count, setCount] = useState(5);
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
 

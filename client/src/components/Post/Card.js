@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { updatePost } from "../../actions/post.actions";
 import { dateParser } from "../../utils";
 import FollowUser from "../Profil/FollowUser";
+import DeleteCard from "./DeleteCard";
 import LikeButton from "./LikeButton";
 
 function Card({ post }) {
@@ -93,6 +94,7 @@ function Card({ post }) {
                 <div onClick={() => setIsUpdated(!isUptaded)}>
                   <img src="./img/icons/edit.svg" alt="edit post" />
                 </div>
+                <DeleteCard id={post._id} />
               </div>
             )}
             <div className="card-footer">
