@@ -2,8 +2,6 @@ const multer = require("multer");
 
 const multerStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    console.log(req.url);
-
     if (req.url === "/upload") {
       cb(null, `${__dirname}/../client/public/uploads/profil`);
     }

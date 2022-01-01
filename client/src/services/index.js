@@ -14,6 +14,9 @@ import {
   unlike_post,
   update_post,
   delete_post,
+  add_comment,
+  edit_comment,
+  delete_comment,
 } from "./posts";
 
 const signin = async (email, password) => {
@@ -56,4 +59,7 @@ export {
   unlike_post,
   update_post,
   delete_post,
+  add_comment,
+  edit_comment,
+  delete_comment,
 };

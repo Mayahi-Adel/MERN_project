@@ -1,5 +1,8 @@
 import {
+  add_comment,
+  delete_comment,
   delete_post,
+  edit_comment,
   getAllPosts,
   like_post,
   unlike_post,
@@ -12,6 +15,11 @@ export const LIKE_POST = "LIKE_POST";
 export const UNLIKE_POST = "UNLIKE_POST";
 export const UPDATE_POST = "UPDATE_POST";
 export const DELETE_POST = "DELETE_POST";
+
+// comments
+export const ADD_COMMENT = "ADD_COMMENT";
+export const EDIT_COMMENT = "EDIT_COMMENT";
+export const DELETE_COMMENT = "DELETE_COMMENT";
 
 export const getPosts = (count) => {
   return async (dispatch) => {
@@ -63,6 +71,42 @@ export const deletePost = (postId) => {
     try {
       await delete_post(postId);
       dispatch({ type: DELETE_POST, payload: { postId } });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const addComment = (postId, commenterId, text, commenterPseudo) => {
+  return async (dispatch) => {
+    try {
+      add_comment(postId, commenterId, text, commenterPseudo);
+      dispatch({
+        type: ADD_COMMENT,
+        payload: { postId, commenterId, text, commenterPseudo },
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const editComment = (postId, commentId, text) => {
+  return async (dispatch) => {
+    try {
+      edit_comment(postId, commentId, text);
+      dispatch({ type: EDIT_COMMENT, payload: { postId, commentId, text } });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const deleteComment = (postId, commentId) => {
+  return async (dispatch) => {
+    try {
+      delete_comment(postId, commentId);
+      dispatch({ type: DELETE_COMMENT, payload: { postId, commentId } });
     } catch (err) {
       console.log(err);
     }
