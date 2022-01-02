@@ -4,6 +4,10 @@ const getAllPosts = async () => {
   return await api.get("/post");
 };
 
+const add_post = async (data) => {
+  return await api.post("/post", data);
+};
+
 const like_post = async (postId, userId) => {
   return await api.patch(`/post/like/${postId}`, { idLiker: userId });
 };
@@ -38,6 +42,7 @@ const delete_comment = async (postId, commentId) => {
 
 export {
   getAllPosts,
+  add_post,
   like_post,
   unlike_post,
   update_post,

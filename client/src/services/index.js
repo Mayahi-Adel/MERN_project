@@ -10,6 +10,7 @@ import {
 
 import {
   getAllPosts,
+  add_post,
   like_post,
   unlike_post,
   update_post,
@@ -55,6 +56,7 @@ export {
   follow_user,
   unfollow_user,
   getAllPosts,
+  add_post,
   like_post,
   unlike_post,
   update_post,

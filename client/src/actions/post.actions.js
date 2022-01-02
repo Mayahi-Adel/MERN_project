@@ -1,5 +1,6 @@
 import {
   add_comment,
+  add_post,
   delete_comment,
   delete_post,
   edit_comment,
@@ -11,6 +12,7 @@ import {
 
 //posts
 export const GET_POSTS = "GET_POSTS";
+export const ADD_POST = "ADD_POST";
 export const LIKE_POST = "LIKE_POST";
 export const UNLIKE_POST = "UNLIKE_POST";
 export const UPDATE_POST = "UPDATE_POST";
@@ -27,6 +29,16 @@ export const getPosts = (count) => {
       const posts = await await getAllPosts();
       const array = posts.data.slice(0, count);
       dispatch({ type: GET_POSTS, payload: array });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+};
+
+export const addPost = (data) => {
+  return async (dispatch) => {
+    try {
+      await add_post(data);
     } catch (err) {
       console.log(err);
     }

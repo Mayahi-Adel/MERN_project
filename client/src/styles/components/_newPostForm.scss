@@ -4,6 +4,8 @@
   border-radius: 20px;
   position: relative;
   background: $color-4;
+  width: 100%;
+  text-align: center;
 
   i {
     font-size: 1.5rem;
@@ -136,6 +138,7 @@
           padding: 10px 20px;
           background: $white;
           transition: 0.2s;
+          color: $color-4;
 
           &:hover {
             background: $color-3;
@@ -165,6 +168,7 @@
           border-radius: 20px;
           margin-right: 8px;
           background: $white;
+          color: $color-4;
 
           &:hover {
             color: $color-4;
