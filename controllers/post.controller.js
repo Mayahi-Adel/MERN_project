@@ -33,7 +33,7 @@ module.exports.createPost = async (req, res) => {
     if (req.file.size > 500000) throw Error("max size");
   } catch (err) {
     const errors = uploadErrors(err);
-    return res.status(500).json({ errors });
+    return res.send({ errors });
   }
 
   // rename the picture (it takes the pseudo of the user)

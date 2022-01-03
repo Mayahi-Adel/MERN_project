@@ -11,28 +11,30 @@ function NewPost() {
   const [video, setVideo] = useState("");
   const [file, setFile] = useState("");
   const userData = useSelector((state) => state.user);
+  const errors = useSelector((state) => state.errors.postErrors);
 
   const dispatch = useDispatch();
 
-  const handleVideo = () => {
-    let findlink = message.split(" ");
-
-    for (let i = 0; i < findlink.length; i++) {
-      if (
-        findlink[i].includes("https://www.yout") ||
-        findlink[i].includes("https://yout")
-      ) {
-        let embed = findlink[i].replace("watch?v=", "embed/");
-        setVideo(embed.split("&")[0]);
-        findlink.splice(i, 1);
-        setMessage(findlink.join(" "));
-        setPicture("");
-      }
-    }
-  };
-
   useEffect(() => {
     if (userData) setIsLoading(false);
+
+    const handleVideo = () => {
+      let findlink = message.split(" ");
+
+      for (let i = 0; i < findlink.length; i++) {
+        if (
+          findlink[i].includes("https://www.yout") ||
+          findlink[i].includes("https://yout")
+        ) {
+          let embed = findlink[i].replace("watch?v=", "embed/");
+          setVideo(embed.split("&")[0]);
+          findlink.splice(i, 1);
+          setMessage(findlink.join(" "));
+          setPicture("");
+        }
+      }
+    };
+
     handleVideo();
   }, [userData, message, video]);
 
@@ -140,6 +142,8 @@ function NewPost() {
                   <button onClick={() => setVideo("")}>Supprimer video</button>
                 )}
               </div>
+              {errors?.format && <p>{errors.format}</p>}
+              {errors?.maxSize && <p>{errors.maxSize}</p>}
               <div className="btn-send">
                 {(message || video.length > 20 || picture) && (
                   <button className="cancel" onClick={cancelPost}>

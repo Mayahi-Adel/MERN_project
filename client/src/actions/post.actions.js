@@ -23,6 +23,9 @@ export const ADD_COMMENT = "ADD_COMMENT";
 export const EDIT_COMMENT = "EDIT_COMMENT";
 export const DELETE_COMMENT = "DELETE_COMMENT";
 
+// errors
+export const GET_POST_ERRORS = "GET_POST_ERRORS";
+
 export const getPosts = (count) => {
   return async (dispatch) => {
     try {
@@ -38,9 +41,13 @@ export const getPosts = (count) => {
 export const addPost = (data) => {
   return async (dispatch) => {
     try {
-      await add_post(data);
+      const post = await add_post(data);
+
+      if (post?.data?.errors) {
+        dispatch({ type: GET_POST_ERRORS, payload: post.data.errors });
+      }
     } catch (err) {
-      console.log(err);
+      console.log(err.errors);
     }
   };
 };
