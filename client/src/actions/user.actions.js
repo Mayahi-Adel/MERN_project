@@ -12,6 +12,8 @@ export const UPDATE_BIO = "UPDATE_BIO";
 export const FOLLOW_USER = "FOLLOW_USER";
 export const UNFOLLOW_USER = "UNFOLLOW_USER";
 
+export const GET_USER_ERRORS = "GET_USER_ERRORS";
+
 export const getUser = (uid) => {
   return async (dispatch) => {
     try {
@@ -26,11 +28,16 @@ export const getUser = (uid) => {
 export const uploadPicture = (data, id) => {
   return async (dispatch) => {
     try {
-      await uploadFile(data);
-      const user = await getUserById(id);
-      console.log(user);
+      const res = await uploadFile(data);
 
-      dispatch({ type: UPLOAD_PICTURE, payload: user?.data?.picture });
+      if (res?.data?.errors) {
+        dispatch({ type: GET_USER_ERRORS, payload: res.data.errors });
+      } else {
+        dispatch({ type: GET_USER_ERRORS, payload: "" });
+        const user = await getUserById(id);
+
+        dispatch({ type: UPLOAD_PICTURE, payload: user?.data?.picture });
+      }
     } catch (err) {
       console.log(err.message);
     }
