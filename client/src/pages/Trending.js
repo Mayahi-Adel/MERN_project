@@ -5,6 +5,7 @@ import UserContext from "../context/appContext";
 import { isEmpty } from "../utils";
 import Card from "../components/Post/Card";
 import Trends from "../components/Trends";
+import FriendsHint from "../components/FriendsHint";
 
 function Trending() {
   const uid = useContext(UserContext);
@@ -22,6 +23,7 @@ function Trending() {
       <div className="right-side">
         <div className="right-side-container">
           <Trends />
+          {uid && <FriendsHint />}
         </div>
       </div>
     </div>

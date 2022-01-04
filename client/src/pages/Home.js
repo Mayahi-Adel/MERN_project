@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import FriendsHint from "../components/FriendsHint";
 import LeftNav from "../components/LeftNav";
 import Log from "../components/Log";
 import NewPost from "../components/Post/NewPost";
@@ -24,6 +25,7 @@ function Home() {
           <div className="right-side-container">
             <div className="wrapper">
               <Trends />
+              {uid && <FriendsHint />}
             </div>
           </div>
         </div>
