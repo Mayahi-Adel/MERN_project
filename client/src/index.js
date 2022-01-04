@@ -9,6 +9,7 @@ import rootReducer from "./reducers";
 import { getUsers } from "./actions/users.actions";
 // Dev tools
 import { composeWithDevTools } from "redux-devtools-extension";
+import { getPosts } from "./actions/post.actions";
 //import { logger } from "redux-logger";
 
 const store = createStore(
@@ -17,6 +18,7 @@ const store = createStore(
 );
 
 store.dispatch(getUsers());
+store.dispatch(getPosts());
 
 ReactDOM.render(
   <Provider store={store}>

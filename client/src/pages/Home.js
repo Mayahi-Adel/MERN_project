@@ -3,6 +3,7 @@ import LeftNav from "../components/LeftNav";
 import Log from "../components/Log";
 import NewPost from "../components/Post/NewPost";
 import Thread from "../components/Thread";
+import Trends from "../components/Trends";
 import UserContext from "../context/appContext";
 
 function Home() {
@@ -18,6 +19,13 @@ function Home() {
             </div>
           </div>
           <Thread />
+        </div>
+        <div className="right-side">
+          <div className="right-side-container">
+            <div className="wrapper">
+              <Trends />
+            </div>
+          </div>
         </div>
       </div>
     </>
