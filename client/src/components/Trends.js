@@ -9,7 +9,6 @@ function Trends() {
   const usersData = useSelector((state) => state.users);
   const trendList = useSelector((state) => state.trends);
   const dispatch = useDispatch();
-  console.log(posts);
 
   useEffect(() => {
     if (!isEmpty(posts)) {
