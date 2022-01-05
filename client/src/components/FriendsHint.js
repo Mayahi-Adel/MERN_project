@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { isEmpty } from "../utils";
+//import { isEmpty } from "../utils";
 import FollowUser from "./Profil/FollowUser";
 
 function FriendsHint() {
@@ -70,6 +70,7 @@ function FriendsHint() {
                   );
                 }
               }
+              return null;
             })}
         </ul>
       )}
