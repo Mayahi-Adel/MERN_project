@@ -9,7 +9,7 @@
     "client": "yarn start --prefix client",
     "server": "nodemon server.js",
     "dev": "concurrently \"yarn run server\" \"yarn run client\"",
-    "heroku-postbuild": "YARN_PRODUCTION=true yarn install --prefix client && yarn run build --prefix client"
+    "heroku-postbuild": "YARN_PRODUCTION=true yarn install --prefix client && yarn build --prefix client"
   },
   "keywords": [],
   "author": "",
