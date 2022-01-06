@@ -8,6 +8,7 @@
     "start": "node server.js",
     "client": "yarn start --prefix client",
     "server": "nodemon server.js",
+    "build": "webpack",
     "dev": "concurrently \"yarn run server\" \"yarn run client\"",
     "heroku-postbuild": "YARN_PRODUCTION=false yarn install --prefix client && yarn build --prefix client"
   },
