@@ -15,7 +15,7 @@ const { checkUser, requireAuth } = require("./middleware/auth.middleware");
 const app = express();
 
 const corsOptions = {
-  origin: process.env.CLIENT_URL,
+  // origin: process.env.CLIENT_URL,
   credentials: true,
   allowedHeaders: ["sessionId", "Content-Type"],
   exposedHeaders: ["sessionId"],
@@ -26,7 +26,7 @@ const corsOptions = {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(cors());
+app.use(cors(corsOptions));
 
 //JWT
 app.get("*", checkUser);
