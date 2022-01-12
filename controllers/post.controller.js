@@ -40,8 +40,8 @@ module.exports.createPost = async (req, res) => {
   const fileName = req.file.filename;
   const newFileName = req.body.posterId + Date.now() + ".jpg";
   fs.rename(
-    `${__dirname}/../client/build/uploads/posts/${fileName}`,
-    `${__dirname}/../client/build/uploads/posts/${newFileName}`,
+    `${__dirname}/../client/public/uploads/posts/${fileName}`,
+    `${__dirname}/../client/public/uploads/posts/${newFileName}`,
     function (err) {
       if (err) console.log("ERROR: " + err);
     }
@@ -50,7 +50,7 @@ module.exports.createPost = async (req, res) => {
   const newPost = new PostModel({
     posterId,
     message,
-    picture: req.file ? "./build/posts/" + newFileName : "",
+    picture: req.file ? "./uploads/posts/" + newFileName : "",
     video,
     likers: [],
     comments: [],
