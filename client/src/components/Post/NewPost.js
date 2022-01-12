@@ -132,7 +132,7 @@ function NewPost() {
                     <img src="./img/icons/picture.svg" alt="add" />
                     <input
                       type="file"
-                      id="file-upload"
+                      id="file"
                       name="file"
                       accept=".jpg, .jpeg, .png"
                       onChange={(e) => handlePicture(e)}
