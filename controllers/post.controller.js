@@ -50,7 +50,7 @@ module.exports.createPost = async (req, res) => {
   const newPost = new PostModel({
     posterId,
     message,
-    picture: req.file ? "./uploads/posts/" + newFileName : "",
+    picture: req.file ? "./client/public/uploads/posts/" + newFileName : "",
     video,
     likers: [],
     comments: [],
