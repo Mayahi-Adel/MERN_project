@@ -28,7 +28,7 @@ function SignInForm() {
   };
 
   useEffect(() => {
-    document.title = "Connexion - Raccoon Network";
+    document.title = "Connexion - butterfly Network";
   }, []);
 
   return (

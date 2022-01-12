@@ -15,8 +15,8 @@ function Navbar() {
         <div className="logo">
           <NavLink exact="true" to="/">
             <div className="logo">
-              <img src="./img/icon.png" alt="raccoon" />
-              <h3>Raccoon</h3>
+              <img src="./img/icon.png" alt="butterfly" />
+              <h3>Butterfly</h3>
             </div>
           </NavLink>
         </div>
