@@ -11,6 +11,9 @@
     "dev": "concurrently \"yarn run server\" \"yarn run client\"",
     "heroku-postbuild": "cd client && yarn && yarn run build"
   },
+  "engines": {
+    "node": "16.13.0"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
