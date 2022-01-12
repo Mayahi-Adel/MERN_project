@@ -3,10 +3,10 @@ const multer = require("multer");
 const multerStorage = multer.diskStorage({
   destination: function (req, file, cb) {
     if (req.url === "/upload") {
-      cb(null, `${__dirname}/../client/public/uploads/profil`);
+      cb(null, `${__dirname}/../client/build/uploads/profil`);
     }
     if (req.url === "/") {
-      cb(null, `${__dirname}/../client/public/uploads/posts`);
+      cb(null, `${__dirname}/../client/build/uploads/posts`);
     }
   },
   filename: function (req, file, cb) {
