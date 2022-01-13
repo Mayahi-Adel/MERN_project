@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script&family=Moon+Dance&family=Poppins:wght@400;600;700;800&display=swap");
+
 nav {
   position: fixed;
   width: 100%;
@@ -38,12 +40,12 @@ nav {
 
       h3 {
         transform: translate(15px, 2px);
-        font-size: 1.6rem;
-        font-style: italic;
+        font-size: 2rem;
+        font-family: "Dancing Script", cursive;
       }
       img {
         height: 40px;
-        width: 40px;
+        width: 45px;
       }
     }
 
