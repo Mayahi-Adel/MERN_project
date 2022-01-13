@@ -20,32 +20,33 @@ module.exports.readPosts = async (req, res) => {
 module.exports.createPost = async (req, res) => {
   const { posterId, message, picture, video } = req.body;
 
-  try {
-    const file = req?.file;
-    if (
-      file == undefined ||
-      (req?.file?.mimetype != "image/jpg" &&
-        req?.file?.mimetype != "image/png" &&
-        req?.file?.mimetype != "image/jpeg")
-    )
-      throw Error("Invalid file");
+  const file = req?.file;
+  if (file) {
+    try {
+      if (
+        file.mimetype != "image/jpg" &&
+        file.mimetype != "image/png" &&
+        file.mimetype != "image/jpeg"
+      )
+        throw Error("Invalid file");
 
-    if (req.file.size > 500000) throw Error("max size");
-  } catch (err) {
-    const errors = uploadErrors(err);
-    return res.send({ errors });
-  }
-
-  // rename the picture (it takes the pseudo of the user)
-  const fileName = req.file.filename;
-  const newFileName = req.body.posterId + Date.now() + ".jpg";
-  fs.rename(
-    `${__dirname}/../client/public/uploads/posts/${fileName}`,
-    `${__dirname}/../client/public/uploads/posts/${newFileName}`,
-    function (err) {
-      if (err) console.log("ERROR: " + err);
+      if (req.file.size > 500000) throw Error("max size");
+    } catch (err) {
+      const errors = uploadErrors(err);
+      return res.send({ errors });
     }
-  );
+
+    // rename the picture (it takes the pseudo of the user)
+    const fileName = req.file.filename;
+    const newFileName = req.body.posterId + Date.now() + ".jpg";
+    fs.rename(
+      `${__dirname}/../client/public/uploads/posts/${fileName}`,
+      `${__dirname}/../client/public/uploads/posts/${newFileName}`,
+      function (err) {
+        if (err) console.log("ERROR: " + err);
+      }
+    );
+  }
 
   const newPost = new PostModel({
     posterId,
