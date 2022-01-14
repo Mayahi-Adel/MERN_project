@@ -33,6 +33,8 @@ module.exports.signIn = async (req, res) => {
     res.cookie("jwt", token, {
       maxAge,
       httpOnly: true,
+      sameSite: "none",
+      secure: true,
     });
     res.status(200).json({ user: user._id, token });
   } catch (err) {
