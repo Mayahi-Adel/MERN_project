@@ -21,12 +21,13 @@ module.exports.createPost = async (req, res) => {
   const { posterId, message, picture, video } = req.body;
 
   const file = req?.file;
+  let newFileName = "";
   if (file) {
     try {
       if (
-        file.mimetype != "image/jpg" &&
-        file.mimetype != "image/png" &&
-        file.mimetype != "image/jpeg"
+        req.file.mimetype != "image/jpg" &&
+        req.file.mimetype != "image/png" &&
+        req.file.mimetype != "image/jpeg"
       )
         throw Error("Invalid file");
 
@@ -38,7 +39,7 @@ module.exports.createPost = async (req, res) => {
 
     // rename the picture (it takes the pseudo of the user)
     const fileName = req.file.filename;
-    const newFileName = req.body.posterId + Date.now() + ".jpg";
+    newFileName = req.body.posterId + Date.now() + ".jpg";
     fs.rename(
       `${__dirname}/../client/public/uploads/posts/${fileName}`,
       `${__dirname}/../client/public/uploads/posts/${newFileName}`,
@@ -51,7 +52,7 @@ module.exports.createPost = async (req, res) => {
   const newPost = new PostModel({
     posterId,
     message,
-    picture: req.file ? "./uploads/posts/" + newFileName : "",
+    picture: req?.file ? "./uploads/posts/" + newFileName : "",
     video,
     likers: [],
     comments: [],
