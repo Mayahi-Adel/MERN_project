@@ -30,10 +30,12 @@ function FriendsHint() {
         list.length = 5;
       } else if (window.innerHeight > 720) {
         list.length = 4;
-      } else if (window.innerHeight > 615) {
+      }
+      // else if (window.innerHeight > 615) {
+      //   list.length = 2;
+      // }
+      else {
         list.length = 2;
-      } else {
-        list.length = 1;
       }
       setFriendsHint(list);
     };
