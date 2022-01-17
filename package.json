@@ -8,8 +8,7 @@
     "start": "node server.js",
     "client": "yarn start --prefix client",
     "server": "nodemon server.js",
-    "dev": "concurrently \"yarn run server\" \"yarn run client\"",
-    "heroku-postbuild": "cd client && yarn && yarn run build"
+    "dev": "concurrently \"yarn run server\" \"yarn run client\""
   },
   "engines": {
     "node": "16.13.0"
@@ -24,7 +23,7 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.13.7",
+    "mongoose": "^6.0.12",
     "multer": "^1.4.3",
     "nodemon": "^2.0.14",
     "validator": "^13.7.0"
