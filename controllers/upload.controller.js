@@ -23,7 +23,7 @@ module.exports.uploadProfil = async (req, res) => {
   // rename the picture (it takes the pseudo of the user)
   const fileName = req.file.filename;
   const newFileName = req.body.name + ".jpg";
-  console.log(fileName);
+
   fs.rename(
     `${__dirname}/../client/public/uploads/profil/${fileName}`,
     `${__dirname}/../client/public/uploads/profil/${newFileName}`,
@@ -32,17 +32,22 @@ module.exports.uploadProfil = async (req, res) => {
     }
   );
 
-  try {
-    await UserModel.findByIdAndUpdate(
-      req.body.userId,
-      { $set: { picture: "./uploads/profil/" + newFileName } },
-      { new: true, upsert: true, setDefaultsOnInsert: true },
-      (err, docs) => {
-        if (!err) res.send(docs);
-        else return res.status(500).json({ message: err });
-      }
-    );
-  } catch (err) {
-    //res.status(500).json({ message: err });
-  }
+  //try {
+  await UserModel.findByIdAndUpdate(
+    req.body.userId,
+    { $set: { picture: "./uploads/profil/" + newFileName } },
+    { new: true, upsert: true, setDefaultsOnInsert: true },
+    (err, docs) => {
+      if (!err) res.send(docs);
+      else return res.status(500).json({ message: err });
+    }
+  )
+    .clone()
+    .catch(function (err) {
+      console.log(err);
+    });
+  // } catch (err) {
+  //   console.error(err);
+  //   //res.status(500).json({ message: err });
+  // }
 };
