@@ -23,6 +23,7 @@ module.exports.uploadProfil = async (req, res) => {
   // rename the picture (it takes the pseudo of the user)
   const fileName = req.file.filename;
   const newFileName = req.body.name + ".jpg";
+  console.log(fileName);
   fs.rename(
     `${__dirname}/../client/public/uploads/profil/${fileName}`,
     `${__dirname}/../client/public/uploads/profil/${newFileName}`,
